@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcornill <fcornill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:38:59 by fcornill          #+#    #+#             */
-/*   Updated: 2024/06/04 11:34:01 by fcornill         ###   ########.fr       */
+/*   Updated: 2024/06/04 10:53:27 by fcornill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	stock_str(unsigned char c, int len, siginfo_t *inf)
 		if (c == 0)
 		{
 			ft_printf("%s\n"GREEN"Message from %d DONE\n"RES, buf, inf->si_pid);
-			kill(inf->si_pid, SIGUSR2);
+			kill(inf->si_pid, SIGUSR1);
 		}
 		else if (c == 255)
 		{
 			ft_printf(RED"\n\nMessage from %d CANCELED\n\n"RES, inf->si_pid);
-			kill(inf->si_pid, SIGUSR1);
+			kill(inf->si_pid, SIGUSR2);
 		}
 		buffer_index = 0;
 		free(buf);

@@ -6,16 +6,15 @@
 /*   By: fcornill <fcornill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 16:31:31 by fcornill          #+#    #+#             */
-/*   Updated: 2024/04/26 15:52:27 by fcornill         ###   ########.fr       */
+/*   Updated: 2024/06/03 17:41:29 by fcornill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "./ft_printf/ft_printf.h"
 #include <signal.h>
-#include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <unistd.h>
 
 int	ft_atoi(char *str)
 {
@@ -40,10 +39,20 @@ int	ft_atoi(char *str)
 	return (res * sign);
 }
 
+size_t	ft_strlen(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
 unsigned char	*ft_calloc(size_t count, size_t size)
 {
 	unsigned char	*ptr;
-	size_t	i;
+	size_t			i;
 
 	ptr = malloc(count * size);
 	i = 0;
@@ -58,26 +67,4 @@ unsigned char	*ft_calloc(size_t count, size_t size)
 		}
 	}
 	return (ptr);
-}
-
-unsigned char	*ft_realloc(unsigned char *ptr, size_t size)
-{
-	unsigned char	*new_ptr;
-	size_t			old_size;
-	
-	if (size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	new_ptr = malloc(size);
-	if (!new_ptr)
-		return (NULL);
-	if (ptr)
-    {
-        old_size = sizeof(ptr);
-        memcpy(new_ptr, ptr, old	_size);
-    }
-	free(ptr);
-	return (new_ptr);
 }

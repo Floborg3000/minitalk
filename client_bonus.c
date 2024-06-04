@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fcornill <fcornill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:40:43 by fcornill          #+#    #+#             */
-/*   Updated: 2024/06/04 15:24:39 by fcornill         ###   ########.fr       */
+/*   Updated: 2024/06/04 14:53:37 by fcornill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,18 @@ static void	send_bits(pid_t pid, char *str)
 		kill(pid, SIGUSR2);
 		usleep(50);
 	}
+	while (1)
+		usleep(10);
 }
 
 static void	handle_signal(int signum)
 {
-	if (signum == SIGUSR2)
+	if (signum == SIGUSR1)
 	{
 		ft_printf(GREEN "\nMessage received by %d\n\n" RES, g_pid);
 		exit (0);
 	}
-	else if (signum == SIGUSR1)
+	else if (signum == SIGUSR2)
 	{
 		ft_printf(RED "\nTransmission CANCELED\n\n" RES);
 		exit (0);
