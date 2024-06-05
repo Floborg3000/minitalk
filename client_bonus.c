@@ -6,7 +6,7 @@
 /*   By: fcornill <fcornill@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 12:40:43 by fcornill          #+#    #+#             */
-/*   Updated: 2024/06/04 14:53:37 by fcornill         ###   ########.fr       */
+/*   Updated: 2024/06/05 14:38:48 by fcornill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ static void	send_bits(pid_t pid, char *str)
 		kill(pid, SIGUSR2);
 		usleep(50);
 	}
-	while (1)
-		usleep(10);
+	usleep(100000);
 }
 
 static void	handle_signal(int signum)
@@ -100,14 +99,14 @@ int	main(int argc, char **argv)
 	struct sigaction	sa_usr;
 	struct sigaction	sa_int;
 
-	pid = ft_atoi(argv[1]);
-	g_pid = pid;
-	if (argc == 3 && pid >= 2)
+	if (argc == 3)
 	{
+		pid = ft_atoi(argv[1]);
+		if (pid < 2)
+			return (1);
+		g_pid = pid;
 		sa_usr.sa_handler = handle_signal;
 		sa_int.sa_handler = handle_sigint;
-		sigemptyset(&sa_usr.sa_mask);
-		sigemptyset(&sa_int.sa_mask);
 		sigaddset(&sa_int.sa_mask, SIGINT);
 		sigaddset(&sa_usr.sa_mask, SIGUSR1);
 		sigaddset(&sa_usr.sa_mask, SIGUSR2);
@@ -118,6 +117,6 @@ int	main(int argc, char **argv)
 		send_bits(pid, argv[2]);
 	}
 	else
-		ft_printf(RED "\nError\nInvalid argument\n" RES);
+		ft_printf(RED "\nError\nInvalid argument\n\n" RES);
 	return (0);
 }
